@@ -6,8 +6,9 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.5.4</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <!-- 错误版本：3.8.1 → 替换为有效版本，如3.3.5 -->
+        <version>3.3.5</version>
+        <relativePath/> <!-- 保持空，优先从仓库下载 -->
     </parent>
 
     <groupId>com.tom</groupId>
@@ -25,6 +26,7 @@
             <artifactId>spring-boot-starter</artifactId>
         </dependency>
 
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
@@ -39,38 +41,33 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
+            <version>1.18.38</version> <!-- 最新稳定版，适配JDK 21/25 -->
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+
     </dependencies>
 
-<build>
-    <plugins>
-        <plugin>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-maven-plugin</artifactId>
-            <!--加入下面两项配置-->
-            <executions>
-                <execution>
-                    <goals>
-                        <goal>repackage</goal>
-                    </goals>
-                </execution>
-            </executions>
-            <configuration>
-                <includeSystemScope>true</includeSystemScope>
-            </configuration>
-        </plugin>
-    </plugins>
-</build>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.14.0</version> <!-- 必须≥3.14.0，适配JDK 25 -->
+                <configuration>
+                    <release>21</release> <!-- JDK 25的release模式 -->
+                    <encoding>UTF-8</encoding>
+                    <!-- 仅保留Lombok注解处理器，删除所有compilerArgs -->
+                    <path>
+                        <groupId>org.projectlombok</groupId>
+                        <artifactId>lombok</artifactId>
+                        <version>1.18.38</version> <!-- 必须≥1.18.38 -->
+                    </path>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
