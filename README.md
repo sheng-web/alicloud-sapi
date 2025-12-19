@@ -1,1 +1,1 @@
-Just a test.
+Just an exercise.
